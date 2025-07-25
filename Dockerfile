@@ -1,18 +1,17 @@
-# Use the official Python image
-FROM python:3.11-slim
+# Use Red Hat's UBI Python 3.11 image (no auth needed)
+FROM registry.access.redhat.com/ubi8/python-311
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy requirements file and install dependencies
+# Copy your app files
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code into container
 COPY app.py .
 
-# Expose port
+# Expose the Flask port
 EXPOSE 5000
 
-# Start the app
+# Run the Flask app
 CMD ["python", "app.py"]
